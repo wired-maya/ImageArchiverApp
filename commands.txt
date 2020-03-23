@@ -1,0 +1,1 @@
+csc -t:library -out:CustomWinControls.dll -r:System.dll -r:System.Windows.Forms.dll -r:System.Drawing.dll CustomWinControls.cs
