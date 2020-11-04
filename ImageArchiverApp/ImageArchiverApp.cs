@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Threading;
 
 //TODO:
+// - have the settings file draw settings pane instead of relying on designer
+// - FILENAME IDEA: have a tag system like mp3tag, some of the same variables, arrow select for the variables, etc
 // - add support for danbooru
 // - add support for twitter and reddit
 // - add support for more things
