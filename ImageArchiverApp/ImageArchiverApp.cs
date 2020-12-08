@@ -7,6 +7,10 @@ using System.Collections.Generic;
 using System.Threading;
 
 //TODO:
+// - organize everything
+// - auto update
+// - have the settings file draw settings pane instead of relying on designer
+// - add support for love live music scraper and yiff.party
 // - FILENAME IDEA: have a tag system like mp3tag, some of the same variables, arrow select for the variables, etc
 // - add support for danbooru
 // - add support for twitter and reddit
