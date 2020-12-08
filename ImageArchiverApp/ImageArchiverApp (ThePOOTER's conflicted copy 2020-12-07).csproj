@@ -110,7 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BooruDownloader.cs" />
-    <Compile Include="Default.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="NhentaiDownloader.cs" />
     <Compile Include="Tools.cs" />
@@ -136,6 +135,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="DefaultSettings.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

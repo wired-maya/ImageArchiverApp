@@ -7,6 +7,10 @@ using System.Collections.Generic;
 using System.Threading;
 
 //TODO:
+// - organize everything
+// - auto update
+// - have the settings file draw settings pane instead of relying on designer
+// - add support for love live music scraper and yiff.party
 // - FILENAME IDEA: have a tag system like mp3tag, some of the same variables, arrow select for the variables, etc
 // - add support for danbooru
 // - add support for twitter and reddit
@@ -73,7 +77,49 @@ namespace ImageArchiverApp
             }
         }
 
-        public Dictionary<string, Dictionary<string, SingleOption>> Settings { get; set; }
+        public Dictionary<string, Boolean> NhentaiOptions
+        {
+            get
+            {
+                Dictionary<string, Boolean> nhentaiOptions = new Dictionary<string, Boolean>();
+                foreach (dynamic control in NhentaiOptionsGroupBox.Controls)
+                {
+                    if (control is CheckBox) nhentaiOptions.Add(control.Name.Substring(7, control.Name.Length - 15), control.Checked);
+                    else if (control is RadioButton) nhentaiOptions.Add(control.Name.Substring(7, control.Name.Length - 18), control.Checked);
+                }
+                return nhentaiOptions;
+            }
+            set
+            {
+                foreach (dynamic control in NhentaiOptionsGroupBox.Controls)
+                {
+                    if (control is CheckBox) control.Checked = value[control.Name.Substring(7, control.Name.Length - 15)];
+                    else if (control is RadioButton) control.Checked = value[control.Name.Substring(7, control.Name.Length - 18)];
+                }
+            }
+        }
+
+        public Dictionary<string, Boolean> PixivOptions
+        {
+            get
+            {
+                Dictionary<string, Boolean> pixivOptions = new Dictionary<string, Boolean>();
+                foreach (dynamic control in PixivOptionsGroupBox.Controls)
+                {
+                    if (control is CheckBox) pixivOptions.Add(control.Name.Substring(5, control.Name.Length - 13), control.Checked);
+                    else if (control is RadioButton) pixivOptions.Add(control.Name.Substring(5, control.Name.Length - 16), control.Checked);
+                }
+                return pixivOptions;
+            }
+            set
+            {
+                foreach (dynamic control in PixivOptionsGroupBox.Controls)
+                {
+                    if (control is CheckBox) control.Checked = value[control.Name.Substring(5, control.Name.Length - 13)];
+                    else if (control is RadioButton) control.Checked = value[control.Name.Substring(5, control.Name.Length - 16)];
+                }
+            }
+        }
 
         public bool IsDownloading
         {
@@ -87,7 +133,8 @@ namespace ImageArchiverApp
                 else DownloadButton.Text = "Download";
                 PathTextbox.Enabled = !value;
                 IdWaterMarkTextBox.Enabled = !value;
-                OptionsGroupBox.Enabled = !value;
+                PixivOptionsGroupBox.Enabled = !value;
+                NhentaiOptionsGroupBox.Enabled = !value;
                 FileBrowseButton.Enabled = !value;
                 PlatformComboBox.Enabled = !value;
             }
@@ -212,25 +259,19 @@ namespace ImageArchiverApp
 
         private void PlatformComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (PlatformComboBox.SelectedItem.ToString())
+            NhentaiOptionsGroupBox.Visible = false;
+            PixivOptionsGroupBox.Visible = false;
+            if (PlatformComboBox.SelectedItem.ToString() == "NHentai")
             {
-                case "Nhentai":
-                    IdWaterMarkTextBox.WaterMarkText = "Input those magic numbers, seperated by spaces. Ex: 177013";
-                    BuildOptions("NhentaiOptions");
-                    break;
-                case "Pixiv":
-                    IdWaterMarkTextBox.WaterMarkText = "Input artist's pixiv ids, seperated by spaces. Ex: 26690900";
-                    BuildOptions("PixivOptions");
-                    break;
-                case "Booru":
-                    IdWaterMarkTextBox.WaterMarkText = "";
-                    BuildOptions("BooruOptions");
-                    break;
-                case "Choose Platform":
-                    IdWaterMarkTextBox.WaterMarkText = "To begin, choose a platform from the dropdown below";
-                    OptionsFlowLayoutPanel.Controls.Clear();
-                    break;
+                IdWaterMarkTextBox.WaterMarkText = "Input those magic numbers, seperated by spaces. Ex: 177013";
+                NhentaiOptionsGroupBox.Visible = true;
             }
+            else if (PlatformComboBox.SelectedItem.ToString() == "Pixiv")
+            {
+                IdWaterMarkTextBox.WaterMarkText = "Input artist's pixiv ids, seperated by spaces. Ex: 26690900";
+                PixivOptionsGroupBox.Visible = true;
+            }
+            else if (PlatformComboBox.SelectedItem.ToString() == "Choose Platform") IdWaterMarkTextBox.WaterMarkText = "To begin, choose a platform from the dropdown below";
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -254,45 +295,6 @@ namespace ImageArchiverApp
         private void PixivLoginTimer_Tick(object sender, EventArgs e)
         {
             client.Auth(client.RefreshToken);
-        }
-
-        private void BuildOptions(string downloader)
-        {
-            OptionsFlowLayoutPanel.Controls.Clear();
-
-            foreach (KeyValuePair<string, SingleOption> setting in Settings[downloader])
-            {
-                if (setting.Value.ControlType == "CheckBox")
-                {
-                    CheckBox checkBox = new CheckBox
-                    {
-                        Text = setting.Value.Title,
-                        Checked = setting.Value.IsTrue,
-                        AutoSize = true,
-                        Name = setting.Key
-                    };
-                    checkBox.CheckedChanged += CheckedChanged;
-                    OptionsFlowLayoutPanel.Controls.Add(checkBox);
-                }
-                else if (setting.Value.ControlType == "RadioButton")
-                {
-                    RadioButton radioButton = new RadioButton
-                    {
-                        Text = setting.Value.Title,
-                        Checked = setting.Value.IsTrue,
-                        AutoSize = true,
-                        Name = setting.Key
-                    };
-                    radioButton.CheckedChanged += CheckedChanged;
-                    OptionsFlowLayoutPanel.Controls.Add(radioButton);
-                }
-            }
-
-        }
-
-        void CheckedChanged(dynamic sender, EventArgs e)
-        {
-            Settings[PlatformComboBox.SelectedItem.ToString() + "Options"][sender.Name].IsTrue = sender.Checked;
         }
     }
 }

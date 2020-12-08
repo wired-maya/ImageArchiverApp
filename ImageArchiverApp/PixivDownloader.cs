@@ -65,7 +65,7 @@ namespace ImageArchiverApp
         private async Task PixivImageDownload(string uri, PixivUserProfile profile, PixivIllustration illust, CancellationToken ct, int i = 0, bool multiplePages = false)
         {
             ct.ThrowIfCancellationRequested();
-            string path = Path.Combine(form.FilePath, Tools.RemoveInvalidCharacters(form.PixivOptions["SortByArtist"] ? profile.User.Name : form.PixivOptions["SortByFranchise"] ? "test" : ""));
+            string path = Path.Combine(form.FilePath, Tools.RemoveInvalidCharacters(/*form.Settings["PixivOptions"]["SortByArtist"].IsTrue ?*/ profile.User.Name /*: form.Settings["PixivOptions"]["SortByFranchise"].IsTrue ? "test" : ""*/));
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             // uri.Substring(uri.LastIndexOf("/") + 1)
             string test = "";
@@ -74,11 +74,11 @@ namespace ImageArchiverApp
                 test += tag.Name + ", ";
             }
             test = test.Substring(0, test.Length - 2);
-            string fileName = form.PixivOptions["FilesAsTitle"] ? illust.Title + (multiplePages ? (i + 1).ToString() : "") + uri.Substring(uri.LastIndexOf(".")) : test + (multiplePages ? (i + 1).ToString() : "") + uri.Substring(uri.LastIndexOf("."));
+            string fileName = form.Settings["PixivOptions"]["FilesAsTitle"].IsTrue ? illust.Title + (multiplePages ? (i + 1).ToString() : "") + uri.Substring(uri.LastIndexOf(".")) : test + (multiplePages ? (i + 1).ToString() : "") + uri.Substring(uri.LastIndexOf("."));
             string filePath = Path.Combine(path, Tools.RemoveInvalidCharacters(fileName));
             if (File.Exists(filePath))
             {
-                if (!form.PixivOptions["Overwrite"])
+                if (!form.Settings["PixivOptions"]["Overwrite"].IsTrue)
                 {
                     await Task.Run(() => { Console.WriteLine($"File {fileName} already exists"); });
                     form.ImageTextProgressBarPerformStep();

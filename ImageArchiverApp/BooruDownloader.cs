@@ -56,7 +56,7 @@ namespace ImageArchiverApp
             List<Task> tasks = new List<Task>();
             foreach (dynamic post in json)
             {
-                if (post.file_url != null) tasks.Add(tools.DownloadFileAsync(post.file_url.ToString(), path, form.NhentaiOptions, ct));
+                if (post.file_url != null) tasks.Add(tools.DownloadFileAsync(post.file_url.ToString(), path, form.Settings["BooruOptions"], ct));
             }
             form.LibraryDisplayMode = CustomWinControls.ProgressBarDisplayMode.TextAndCurrProgress;
             form.LibraryCustomText = combinedTags;

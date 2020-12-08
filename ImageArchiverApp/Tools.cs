@@ -19,13 +19,13 @@ namespace ImageArchiverApp
             this.form = form;
         }
 
-        public async Task DownloadFileAsync(string uri, string filePath, Dictionary<string, Boolean> options, CancellationToken ct, string leadingString = "")
+        public async Task DownloadFileAsync(string uri, string filePath, Dictionary<string, SingleOption> options, CancellationToken ct, string leadingString = "")
         {
             string fileName = leadingString + uri.Substring(uri.LastIndexOf("/") + 1, uri.Length - (uri.LastIndexOf("/") + 1));
             filePath = Path.Combine(filePath, RemoveInvalidCharacters(fileName));
             if (File.Exists(filePath))
             {
-                if (!options["Overwrite"])
+                if (!options["Overwrite"].IsTrue)
                 {
                     await Task.Run(() => { Console.WriteLine($"File {fileName} already exists"); });
                     form.ImageTextProgressBarPerformStep();
