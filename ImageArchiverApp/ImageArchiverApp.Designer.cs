@@ -28,15 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.DownloadButton = new System.Windows.Forms.Button();
-            this.FileBrowseButton = new System.Windows.Forms.Button();
+            this.FolderBrowseButton = new System.Windows.Forms.Button();
             this.PathTextbox = new System.Windows.Forms.TextBox();
             this.PlatformComboBox = new System.Windows.Forms.ComboBox();
             this.IdWaterMarkTextBox = new CustomWinControls.WaterMarkTextBox();
             this.ImageTextProgressBar = new CustomWinControls.TextProgressBar();
             this.LibraryTextProgressBar = new CustomWinControls.TextProgressBar();
-            this.PixivLoginTimer = new System.Windows.Forms.Timer(this.components);
             this.OptionsGroupBox = new System.Windows.Forms.GroupBox();
             this.OptionsFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.OptionsGroupBox.SuspendLayout();
@@ -53,16 +51,16 @@
             this.DownloadButton.UseVisualStyleBackColor = true;
             this.DownloadButton.Click += new System.EventHandler(this.DownloadButton_Click);
             // 
-            // FileBrowseButton
+            // FolderBrowseButton
             // 
-            this.FileBrowseButton.Location = new System.Drawing.Point(669, 322);
-            this.FileBrowseButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.FileBrowseButton.Name = "FileBrowseButton";
-            this.FileBrowseButton.Size = new System.Drawing.Size(120, 23);
-            this.FileBrowseButton.TabIndex = 1;
-            this.FileBrowseButton.Text = "Browse";
-            this.FileBrowseButton.UseVisualStyleBackColor = true;
-            this.FileBrowseButton.Click += new System.EventHandler(this.FileBrowseButton_Click);
+            this.FolderBrowseButton.Location = new System.Drawing.Point(669, 323);
+            this.FolderBrowseButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.FolderBrowseButton.Name = "FolderBrowseButton";
+            this.FolderBrowseButton.Size = new System.Drawing.Size(120, 25);
+            this.FolderBrowseButton.TabIndex = 1;
+            this.FolderBrowseButton.Text = "Browse";
+            this.FolderBrowseButton.UseVisualStyleBackColor = true;
+            this.FolderBrowseButton.Click += new System.EventHandler(this.FolderBrowseButton_Click);
             // 
             // PathTextbox
             // 
@@ -126,11 +124,6 @@
             this.LibraryTextProgressBar.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LibraryTextProgressBar.VisualMode = CustomWinControls.ProgressBarDisplayMode.CurrProgress;
             // 
-            // PixivLoginTimer
-            // 
-            this.PixivLoginTimer.Interval = 2700000;
-            this.PixivLoginTimer.Tick += new System.EventHandler(this.PixivLoginTimer_Tick);
-            // 
             // OptionsGroupBox
             // 
             this.OptionsGroupBox.Controls.Add(this.OptionsFlowLayoutPanel);
@@ -162,7 +155,7 @@
             this.Controls.Add(this.LibraryTextProgressBar);
             this.Controls.Add(this.PlatformComboBox);
             this.Controls.Add(this.PathTextbox);
-            this.Controls.Add(this.FileBrowseButton);
+            this.Controls.Add(this.FolderBrowseButton);
             this.Controls.Add(this.DownloadButton);
             this.Controls.Add(this.OptionsGroupBox);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -178,13 +171,12 @@
         #endregion
 
         private System.Windows.Forms.Button DownloadButton;
-        private System.Windows.Forms.Button FileBrowseButton;
+        private System.Windows.Forms.Button FolderBrowseButton;
         private System.Windows.Forms.ComboBox PlatformComboBox;
         private CustomWinControls.TextProgressBar LibraryTextProgressBar;
         private CustomWinControls.TextProgressBar ImageTextProgressBar;
         private CustomWinControls.WaterMarkTextBox IdWaterMarkTextBox;
         internal System.Windows.Forms.TextBox PathTextbox;
-        private System.Windows.Forms.Timer PixivLoginTimer;
         private System.Windows.Forms.GroupBox OptionsGroupBox;
         private System.Windows.Forms.FlowLayoutPanel OptionsFlowLayoutPanel;
     }
