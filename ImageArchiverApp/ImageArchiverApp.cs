@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.Linq;
 
 //TODO:
+// - make downloaders use appsettings filepath not form.filepath
 // - make generic downloader that downloads all images on web page (have messagebox that shows up and warns you about the jank-ness of jank)
 // - rewrite readme to explain how to use the new modularity when adding your own downloader
 // - maybe make options group box a scrollable thing to fit more, might not need to use more columns

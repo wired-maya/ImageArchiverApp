@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using ImageArchiverApp.Downloaders;
 
 //TODO:
+// - also does not work
 // - also find a more wholesome example number
 // - fix pixiv login timer!!!!!!!!
 // - change filename in pixivdownloader to only use filepath instead of filepath and filename
@@ -49,7 +50,7 @@ namespace ImageArchiverApp
             PixivResult<PixivIllustration> mangas = await client.GetUserIllustrations(id, "manga");
             PixivUserProfile profile = await client.GetUserDetail(id);
             List<Task> tasks = new List<Task>();
-            IEnumerable<List<Task>> splitTasks = SplitList(tasks);
+            IEnumerable<List<Task>> splitTasks;
 
             await illusts.SearchAll();
             await mangas.SearchAll();
@@ -82,6 +83,8 @@ namespace ImageArchiverApp
             }
 
             form.SetImageTextProgressBar(tasks.Count);
+
+            splitTasks = SplitList(tasks);
 
             foreach (List<Task> TaskList in splitTasks)
             {

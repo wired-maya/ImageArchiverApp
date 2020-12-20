@@ -107,9 +107,9 @@ namespace ImageArchiverApp.Downloaders
             }
         }
 
-        protected virtual async Task DownloadFileAsync(string uri, string filePath, bool canOverwrite, CancellationToken ct)
+        protected virtual async Task DownloadFileAsync(string uri, string filePath, string fileName, bool canOverwrite, CancellationToken ct)
         {
-            filePath = RemoveInvalidCharacters(filePath);
+            filePath += @"\" + RemoveInvalidCharacters(fileName);
 
             if (File.Exists(filePath) && !canOverwrite)
             {

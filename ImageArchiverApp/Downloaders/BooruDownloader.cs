@@ -87,7 +87,8 @@ namespace ImageArchiverApp
             {
                 if (post.file_url != null) tasks.Add(DownloadFileAsync(
                     post.file_url.ToString(),
-                    path + @"\" + post.file_url.ToString().Substring(post.file_url.ToString().LastIndexOf("/") + 1),
+                    path,
+                    @"\" + post.file_url.ToString().Substring(post.file_url.ToString().LastIndexOf("/") + 1),
                     DownloaderSettings["Overwrite"],
                     ct
                     ));
