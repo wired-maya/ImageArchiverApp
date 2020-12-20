@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading;
 using ImageArchiverApp.Downloaders;
 using Newtonsoft.Json;
+using System.Linq;
 
 //TODO:
 // - make generic downloader that downloads all images on web page (have messagebox that shows up and warns you about the jank-ness of jank)
@@ -23,11 +24,13 @@ using Newtonsoft.Json;
 //          ⤷ have button to check for updates, use same popup dialogue but w/o option
 //      ⤷ update settings by reading them, assigning values that are in both defaults and read settings to a new settings object, fill in anything new with default values
 //      ⤷ maybe add changelog?
+// - fix all the downloaders ffs
 // - add support for love live music scraper and yiff.party
 // - FILENAME IDEA: have a tag system like mp3tag, some of the same variables, arrow select for the variables, etc
 //      ⤷ have what you chose in settings, have set of options (eg. %TITLE% or something) in defaults.cs
 //      ⤷ textbox INSIDE options groupbox (maybe) with preview
 //      ⤷ have option on EVERYTHING to preserve original file name (as if you downloaded stuff from the actual website)
+//          ⤷ have it override any other settings that have to do with filename, with warning in option's text
 // - add option to save all the stuff to compressed file (eg .zip)
 //      ⤷ compress has drop-down with options to compress individual galleries or whole download
 //      ⤷ try being able to compress directly (maybe by making archive > add to it) or if you can't just compress after download
@@ -53,6 +56,10 @@ namespace ImageArchiverApp
 
             FilePath = AppSettings["FilePath"];
 
+            string[] downloaderList = DownloaderList.Keys.ToArray();
+            Array.Sort(downloaderList);
+
+            PlatformComboBox.Items.AddRange(downloaderList);
             PlatformComboBox.SelectedIndex = 0;
 
             LibraryTextProgressBar.Maximum = 0;
@@ -70,6 +77,16 @@ namespace ImageArchiverApp
         }
 
         public Dictionary<string, dynamic> AppSettings { get; set; }
+
+        private Dictionary<string, string> DownloaderList
+        {
+            get => new Dictionary<string, string>()
+            {
+                { "Nhentai", "NhentaiDownloader" },
+                { "Pixiv", "PixivDownloader" },
+                { "Booru", "BooruDownloader" }
+            };
+        }
 
         public string FilePath
         {
@@ -234,46 +251,20 @@ namespace ImageArchiverApp
         {
             if (currentDownloader != null) currentDownloader.SaveCurrentSettings();
 
-            // have this be generated based on downloaders, not hard coded
-            switch (PlatformComboBox.SelectedItem.ToString())
+            if (PlatformComboBox.SelectedItem.ToString() == "Choose Platform")
             {
-                case "Nhentai":
-                    {
-                        currentDownloader = new NhentaiDownloader(this);
-                        IdWaterMarkTextBox.WaterMarkText = "Input those magic numbers, seperated by spaces. Ex: 177013";
+                currentDownloader = null;
+                IdWaterMarkTextBox.WaterMarkText = "To begin, choose a platform from the dropdown below";
 
-                        break;
-                    }
-
-                case "Pixiv":
-                    {
-                        currentDownloader = new PixivDownloader(this);
-                        IdWaterMarkTextBox.WaterMarkText = "Input artist's pixiv ids, seperated by spaces. Ex: 26690900";
-                        
-                        break;
-                    }
-                    
-                case "Booru":
-                    {
-                        currentDownloader = new BooruDownloader(this);
-                        IdWaterMarkTextBox.WaterMarkText = "";
-
-                        break;
-                    }
-
-                default:
-                    {
-                        currentDownloader = null;
-                        IdWaterMarkTextBox.WaterMarkText = "To begin, choose a platform from the dropdown below";
-
-                        OptionsFlowLayoutPanel.Controls.Clear();
-
-                        break;
-                    }
+                OptionsFlowLayoutPanel.Controls.Clear();
             }
-
-            if (currentDownloader != null)
+            else
             {
+                Type downloaderType = Type.GetType("ImageArchiverApp." + DownloaderList[PlatformComboBox.SelectedItem.ToString()]);
+                currentDownloader = (BaseDownloader)Activator.CreateInstance(downloaderType, this);
+
+                IdWaterMarkTextBox.WaterMarkText = currentDownloader.TextBoxWatermark;
+
                 currentDownloader.ReadSettingsFromFile();
                 BuildOptions(currentDownloader);
             }

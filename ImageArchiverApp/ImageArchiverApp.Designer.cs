@@ -76,10 +76,7 @@
             // 
             this.PlatformComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PlatformComboBox.Items.AddRange(new object[] {
-            "Choose Platform",
-            "Booru",
-            "Nhentai",
-            "Pixiv"});
+            "Choose Platform"});
             this.PlatformComboBox.Location = new System.Drawing.Point(11, 46);
             this.PlatformComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PlatformComboBox.Name = "PlatformComboBox";

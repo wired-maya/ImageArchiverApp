@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using ImageArchiverApp.Downloaders;
 
 //TODO:
+// - find a more wholesome example number
 // - allow downloading of tags/artists w/ tag blacklists
 // - has that interesting wrinkle where it doesn't work
 // - save tags for doujin in txt (option)
@@ -37,6 +38,7 @@ namespace ImageArchiverApp
         }
 
         public override string Name { get => "Nhentai";  }
+        public override string TextBoxWatermark { get => "Input those magic numbers, seperated by spaces. Ex: 177013"; }
 
         protected override async Task DownloadGalleryAsync(string id, CancellationToken ct)
         {

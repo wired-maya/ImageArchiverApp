@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using ImageArchiverApp.Downloaders;
 
 //TODO:
+// - also find a more wholesome example number
 // - fix pixiv login timer!!!!!!!!
 // - change filename in pixivdownloader to only use filepath instead of filepath and filename
 // - get sort by franchise working by using the tags
@@ -40,6 +41,7 @@ namespace ImageArchiverApp
         }
 
         public override string Name { get => "Pixiv"; }
+        public override string TextBoxWatermark { get => "Input artist's pixiv ids, seperated by spaces. Ex: 26690900"; }
 
         protected override async Task DownloadGalleryAsync(string id, CancellationToken ct)
         {

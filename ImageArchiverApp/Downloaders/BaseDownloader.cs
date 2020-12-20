@@ -16,6 +16,7 @@ namespace ImageArchiverApp.Downloaders
         public abstract Dictionary<string, dynamic> DefaultSettings { get; }
         public abstract Dictionary<string, SingleOption> SettingsStructure { get; }
         public abstract string Name { get; }
+        public abstract string TextBoxWatermark { get; }
         public Dictionary<string, dynamic> DownloaderSettings { get; set; }
 
         public BaseDownloader(MainWindow form)

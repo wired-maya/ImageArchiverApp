@@ -51,6 +51,7 @@ namespace ImageArchiverApp
         }
 
         public override string Name { get => "Booru"; }
+        public override string TextBoxWatermark { get => ""; }
 
         protected override async Task DownloadGalleryAsync(string tags, CancellationToken ct)
         {
