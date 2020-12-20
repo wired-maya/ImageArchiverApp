@@ -10,6 +10,7 @@ using System.Linq;
 
 //TODO:
 // - make generic downloader that downloads all images on web page (have messagebox that shows up and warns you about the jank-ness of jank)
+// - rewrite readme to explain how to use the new modularity when adding your own downloader
 // - maybe make options group box a scrollable thing to fit more, might not need to use more columns
 //      ⤷ maybe have options area have sub group boxes since it can now scroll
 //          ⤷ section for compression that chooses what format, what to compress, when to compress maybe even?
@@ -82,9 +83,9 @@ namespace ImageArchiverApp
         {
             get => new Dictionary<string, string>()
             {
-                { "Nhentai", "NhentaiDownloader" },
-                { "Pixiv", "PixivDownloader" },
-                { "Booru", "BooruDownloader" }
+                { "Nhentai", "ImageArchiverApp.NhentaiDownloader" },
+                { "Pixiv", "ImageArchiverApp.PixivDownloader" },
+                { "Booru", "ImageArchiverApp.BooruDownloader" }
             };
         }
 
@@ -260,7 +261,7 @@ namespace ImageArchiverApp
             }
             else
             {
-                Type downloaderType = Type.GetType("ImageArchiverApp." + DownloaderList[PlatformComboBox.SelectedItem.ToString()]);
+                Type downloaderType = Type.GetType(DownloaderList[PlatformComboBox.SelectedItem.ToString()]);
                 currentDownloader = (BaseDownloader)Activator.CreateInstance(downloaderType, this);
 
                 IdWaterMarkTextBox.WaterMarkText = currentDownloader.TextBoxWatermark;
