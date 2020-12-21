@@ -28,7 +28,7 @@ using System.Linq;
 //      ⤷ update settings by reading them, assigning values that are in both defaults and read settings to a new settings object, fill in anything new with default values
 //      ⤷ maybe add changelog?
 // - fix all the downloaders ffs
-// - add support for love live music scraper and yiff.party
+// - add support for love live music scraper
 // - FILENAME IDEA: have a tag system like mp3tag, some of the same variables, arrow select for the variables, etc
 //      ⤷ have what you chose in settings, have set of options (eg. %TITLE% or something) in defaults.cs
 //      ⤷ textbox INSIDE options groupbox (maybe) with preview

@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 
 //TODO:
-// - find a more wholesome example number
 // - has that interesting wrinkle where it doesn't work
 // - allow downloading of tags/artists w/ tag blacklists
 // - save tags for doujin in txt (option)
@@ -37,7 +36,7 @@ namespace ImageArchiverApp.Downloaders
         }
 
         public override string Name { get => "Nhentai";  }
-        public override string TextBoxWatermark { get => "Input those magic numbers, seperated by spaces. Ex: 177013"; }
+        public override string TextBoxWatermark { get => "Input number of doujin (after the /g/) separated by spaces"; }
 
         protected override async Task DownloadGalleryAsync(string id, CancellationToken ct)
         {
