@@ -9,7 +9,8 @@ using Newtonsoft.Json;
 using System.Linq;
 
 //TODO:
-// - make downloaders use appsettings filepath not form.filepath
+// - fix all downloaders and finish the booru downloader
+//      ⤷ make downloaders use appsettings filepath not form.filepath
 // - make generic downloader that downloads all images on web page (have messagebox that shows up and warns you about the jank-ness of jank)
 // - rewrite readme to explain how to use the new modularity when adding your own downloader
 // - maybe make options group box a scrollable thing to fit more, might not need to use more columns
@@ -84,9 +85,10 @@ namespace ImageArchiverApp
         {
             get => new Dictionary<string, string>()
             {
-                { "Nhentai", "ImageArchiverApp.NhentaiDownloader" },
-                { "Pixiv", "ImageArchiverApp.PixivDownloader" },
-                { "Booru", "ImageArchiverApp.BooruDownloader" }
+                { "Nhentai", "ImageArchiverApp.Downloaders.NhentaiDownloader" },
+                { "Pixiv", "ImageArchiverApp.Downloaders.PixivDownloader" },
+                { "Booru", "ImageArchiverApp.Downloaders.BooruDownloader" },
+                { "Generic Downloader", "ImageArchiverApp.Downloaders.GenericDownloader" }
             };
         }
 

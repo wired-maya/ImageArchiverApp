@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using ImageArchiverApp.Downloaders;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -21,7 +20,7 @@ using Newtonsoft.Json.Linq;
 // - add support for more danbooru boorus and gelbooru boorus: https://gelbooru.com/index.php?page=wiki&s=view&id=18780
 // - add possible support for custom gelboorus/danboorus
 
-namespace ImageArchiverApp
+namespace ImageArchiverApp.Downloaders
 {
     class BooruDownloader : BaseDownloader
     {

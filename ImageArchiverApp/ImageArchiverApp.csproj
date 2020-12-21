@@ -111,6 +111,7 @@
   <ItemGroup>
     <Compile Include="Downloaders\BooruDownloader.cs" />
     <Compile Include="Downloaders\BaseDownloader.cs" />
+    <Compile Include="Downloaders\GenericDownloader.cs" />
     <Compile Include="Downloaders\NhentaiDownloader.cs" />
     <Compile Include="Downloaders\PixivDownloader.cs" />
     <Compile Include="ImageArchiverApp.cs">

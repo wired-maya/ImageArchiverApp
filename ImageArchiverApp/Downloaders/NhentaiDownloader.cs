@@ -3,7 +3,6 @@ using System.Threading;
 using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using ImageArchiverApp.Downloaders;
 
 //TODO:
 // - find a more wholesome example number
@@ -11,7 +10,7 @@ using ImageArchiverApp.Downloaders;
 // - allow downloading of tags/artists w/ tag blacklists
 // - save tags for doujin in txt (option)
 
-namespace ImageArchiverApp
+namespace ImageArchiverApp.Downloaders
 {
     class NhentaiDownloader : BaseDownloader
     {

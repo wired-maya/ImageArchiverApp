@@ -5,7 +5,6 @@ using System.IO;
 using PixeeSharp;
 using PixeeSharp.Models;
 using System.Collections.Generic;
-using ImageArchiverApp.Downloaders;
 
 //TODO:
 // - also does not work
@@ -16,7 +15,7 @@ using ImageArchiverApp.Downloaders;
 // - figure out how to download the weird gif things (ugoria)
 // - add ignore r-18 and r-18g tagged image options
 
-namespace ImageArchiverApp
+namespace ImageArchiverApp.Downloaders
 {
     class PixivDownloader : BaseDownloader
     {
